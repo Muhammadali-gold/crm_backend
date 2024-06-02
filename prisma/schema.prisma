@@ -24,16 +24,31 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   phone String?
+  roles Role[]
+  accessTokens AccessToken[]
+  refreshTokens RefreshToken[]
 }
 
 
-model UserToken {
+model Role {
   id    Int     @default(autoincrement()) @id
-  email String  @unique
-  firstName  String?
-  lastName  String?
-  password  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  phone String?
+  name String  @unique
+  users User[]
+}
+
+model AccessToken {
+  id    Int     @default(autoincrement()) @id
+  token String  @unique
+  expiredAt DateTime
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+}
+
+model RefreshToken {
+  id    Int     @default(autoincrement()) @id
+  token String  @unique
+  expiredAt DateTime
+  used Boolean @default(false)
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 }
