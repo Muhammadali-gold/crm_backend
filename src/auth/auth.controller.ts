@@ -1,7 +1,6 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './user.dto';
-import { User } from '@prisma/client';
 
 @Controller('api/v1/auth')
 export class AuthController {
@@ -20,16 +19,10 @@ export class AuthController {
   //     Array.of('SUPERADMIN'),
   //   );
   // }
-
-
   @Post('refresh-token')
   refreshToken(@Body() signInDto: CreateUserDto): Promise<string> {
     return this.userService.signIn(signInDto.email, signInDto.password);
   }
-  
-
-
-
   // @Post('signup')
   // signup(): string {
   //   return this.userService.getHello();
@@ -38,8 +31,5 @@ export class AuthController {
   // @Post('reset-password')
   // resetPassword(): string {
   //   return this.userService.getHello();
-  // } my brnach
+  // } sunnatillo2
 }
-
-
-
